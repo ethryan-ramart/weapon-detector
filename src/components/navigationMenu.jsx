@@ -6,7 +6,7 @@ function NavigationMenu() {
     return (
       <Menu theme="dark" mode="inline">
         <Menu.Item key="home">
-          <Link to="/">Dashboard</Link>
+          <Link to="/">Home</Link>
         </Menu.Item>
         <Menu.Item key="about">
           <Link to="/about">About</Link>
