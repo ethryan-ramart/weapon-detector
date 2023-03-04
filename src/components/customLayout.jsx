@@ -20,7 +20,7 @@ const CustomLayout = ({ children }) => {
         <div
           style={{
             marginLeft: "30px",
-            background: "white",
+            background: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(64,64,115,0.9654236694677871) 35%, rgba(26,103,180,1) 100%)",
             borderTopLeftRadius: "10px",
             borderTopRightRadius: "10px",
             borderBottomLeftRadius: "10px",
