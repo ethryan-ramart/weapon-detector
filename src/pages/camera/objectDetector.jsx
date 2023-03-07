@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import * as tf from "@tensorflow/tfjs";
 import * as cocossd from "@tensorflow-models/coco-ssd";
-import { Button } from "antd";
+import { Button, Table } from "antd";
 
 const appBox = {
   position: "absolute",
@@ -18,9 +18,8 @@ const cameraContainer = {
 
 function ObjectDetector() {
   const webcamRef = useRef(null);
-  const [buttonText, setButtonText] = useState("Acivate Detector");
-  const [activateDetection, setActivateDetection] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
     
   useEffect(() => {
     setLoading(true);
@@ -46,7 +45,7 @@ function ObjectDetector() {
         ctx.drawImage(video, 0, 0, videoWidth, videoHeight);
         const img = tf.browser.fromPixels(canvas);
         const predictions = await net.detect(img);
-
+        setData(predictions);
         console.log("Predictions: ", predictions);
 
       }
@@ -56,15 +55,13 @@ function ObjectDetector() {
     setLoading(false);
   }, []);
 
-  const onClickActivate = () => {
-    if (!activateDetection) {
-      setActivateDetection(1);
-      setButtonText("Deactivate Detector");
-    } else {
-      setActivateDetection(0);
-      setButtonText("Acivate Detector");
-    }
-  };
+  const columns = [
+    {
+      // title: "Name",
+      dataIndex: "class",
+      key: "class",
+    },
+  ]
   return (
     <div style={appBox}>
       <div style={cameraContainer}>
@@ -78,7 +75,12 @@ function ObjectDetector() {
           />
         </div>
         <div>
-          <Button onClick={onClickActivate}>{buttonText}</Button>
+          <Table
+            dataSource={data}
+            columns={columns}
+          >
+
+          </Table>
         </div>
       </div>
     </div>
